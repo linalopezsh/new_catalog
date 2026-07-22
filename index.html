@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trintec Construction Inc. — General &amp; Roofing Contractor, Miami FL</title>
+<meta name="description" content="Trintec Construction Inc. — full-service General and Roofing Contractor serving Miami-Dade, Broward and Palm Beach since 1998. SBE / DBE / WBE certified. $10M bonding capacity.">
+<meta name="theme-color" content="#071b2f">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<style>
+:root{
+  --ink:#071b2f;
+  --ink-2:#0e2a44;
+  --blue:#1a5fa8;
+  --blue-700:#144a85;
+  --sky:#5aabdc;
+  --sky-soft:#e8f2fb;
+  --gold:#c1972b;
+  --paper:#ffffff;
+  --shell:#f4f7fb;
+  --text:#132132;
+  --muted:#5c7086;
+  --line:#dde5ee;
+  --r:14px;
+  --shadow:0 1px 2px rgba(7,27,47,.05), 0 12px 28px -14px rgba(7,27,47,.22);
+  --shadow-lift:0 2px 4px rgba(7,27,47,.06), 0 22px 40px -18px rgba(7,27,47,.34);
+  --nav-h:68px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--text);background:var(--paper);
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:var(--blue);text-decoration:none}
+h1,h2,h3,.display{font-family:"Outfit",sans-serif;line-height:1.12;letter-spacing:-.015em;font-weight:600}
+:focus-visible{outline:2px solid var(--sky);outline-offset:3px;border-radius:4px}
+
+/* ============ header ============ */
+.topbar{
+  position:sticky;top:0;z-index:400;height:var(--nav-h);
+  background:rgba(255,255,255,.88);backdrop-filter:saturate(180%) blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.topbar-in{
+  max-width:1180px;margin:0 auto;height:100%;padding:0 24px;
+  display:flex;align-items:center;gap:26px;
+}
+.brandmark img{height:40px;width:auto}
+.mainnav{display:flex;gap:4px;margin-left:auto}
+.mainnav a{
+  padding:8px 12px;border-radius:8px;font-size:14px;color:var(--muted);font-weight:500;
+  transition:color .15s,background .15s;
+}
+.mainnav a:hover{color:var(--text);background:var(--shell)}
+.mainnav a.current{color:var(--blue);background:var(--sky-soft)}
+.call-btn{
+  display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;
+  background:var(--blue);color:#fff;font-weight:600;font-size:14px;white-space:nowrap;
+  transition:background .18s,transform .18s;
+}
+.call-btn:hover{background:var(--blue-700);transform:translateY(-1px)}
+.menu-toggle{display:none;margin-left:auto;background:none;border:1px solid var(--line);border-radius:10px;padding:8px 10px;cursor:pointer}
+.menu-toggle svg{display:block;stroke:var(--text)}
+
+/* ============ hero ============ */
+.hero{position:relative;background:var(--ink);color:#fff;overflow:hidden;isolation:isolate}
+.hero::before{
+  content:"";position:absolute;inset:0;z-index:-2;
+  background-image:url('ChatGPT_Image_May_1__2026__03_26_58_PM.png');
+  background-size:cover;background-position:center right;
+  opacity:.20;filter:grayscale(.35) contrast(1.05);
+}
+.hero::after{               /* drafting grid */
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(90,171,220,.13) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(90,171,220,.13) 1px,transparent 1px);
+  background-size:56px 56px;
+  mask-image:radial-gradient(120% 90% at 15% 0%,#000 20%,transparent 78%);
+  -webkit-mask-image:radial-gradient(120% 90% at 15% 0%,#000 20%,transparent 78%);
+}
+.hero-in{max-width:1180px;margin:0 auto;padding:84px 24px 0}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--sky);font-weight:600;
+}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--sky);display:block}
+.hero h1{
+  font-size:clamp(34px,5.4vw,62px);font-weight:600;margin:22px 0 0;max-width:16ch;color:#fff;
+}
+.hero h1 em{font-style:normal;color:var(--sky)}
+.hero p.lead{
+  margin-top:20px;max-width:56ch;font-size:clamp(15px,1.5vw,18px);color:#c6d6e5;line-height:1.7;
+}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.btn{
+  display:inline-flex;align-items:center;gap:9px;padding:13px 22px;border-radius:999px;
+  font-weight:600;font-size:15px;cursor:pointer;border:1px solid transparent;
+  transition:background .18s,border-color .18s,transform .18s,color .18s;
+}
+.btn-primary{background:var(--sky);color:var(--ink)}
+.btn-primary:hover{background:#7dc0e8;transform:translateY(-1px)}
+.btn-ghost{border-color:rgba(255,255,255,.32);color:#fff}
+.btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.09)}
+.stats{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:64px;
+  border-top:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.12);
+}
+.stat{background:var(--ink);padding:26px 20px 34px}
+.stat .n{font-family:"Outfit",sans-serif;font-size:clamp(26px,3.4vw,38px);font-weight:600;color:#fff;letter-spacing:-.02em}
+.stat .n small{font-size:.55em;font-weight:500;color:var(--sky);margin-left:2px}
+.stat .l{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#8ba6bf;margin-top:6px}
+
+/* ============ sections ============ */
+section{scroll-margin-top:calc(var(--nav-h) + 8px)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.band{padding:88px 0}
+.band.shell{background:var(--shell)}
+.sec-head{max-width:62ch;margin-bottom:40px}
+.sec-kicker{
+  font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);font-weight:600;
+  display:flex;align-items:center;gap:10px;
+}
+.sec-kicker::before{content:"";width:22px;height:1px;background:var(--blue)}
+.sec-head h2{font-size:clamp(27px,3.6vw,40px);margin:14px 0 0}
+.sec-head p{margin-top:14px;color:var(--muted);font-size:17px}
+
+/* cards */
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
+.pillar{padding:26px;border-radius:var(--r);background:var(--paper);border:1px solid var(--line);box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s}
+.pillar:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift)}
+.pillar svg{margin-bottom:14px}
+.pillar h3{font-size:18px;margin-bottom:6px}
+.pillar p{font-size:14.5px;color:var(--muted);line-height:1.6}
+
+.about-cols{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:start}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fact{padding:20px;border-radius:var(--r);background:var(--paper);border:1px solid var(--line)}
+.fact .k{font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+.fact .v{font-family:"Outfit",sans-serif;font-size:22px;font-weight:600;margin-top:6px}
+.fact .s{font-size:13.5px;color:var(--muted);margin-top:2px}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.badge{
+  padding:7px 15px;border-radius:999px;font-size:13px;font-weight:600;
+  background:var(--sky-soft);color:var(--blue-700);border:1px solid #bcdcf3;
+}
+.badge.gold{background:#fdf6e3;color:#8a6a12;border-color:#eddcae}
+
+/* clients */
+.client-cols{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.client-cols h3{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  padding:7px 14px;border-radius:999px;font-size:13.5px;background:var(--paper);
+  border:1px solid var(--line);color:var(--text);transition:border-color .15s,color .15s;
+}
+.chip:hover{border-color:var(--sky);color:var(--blue)}
+.chip.gov{background:var(--sky-soft);border-color:#bcdcf3;color:var(--blue-700)}
+.map-shell{margin-top:34px;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--paper);box-shadow:var(--shadow)}
+.map-shell .cap{padding:14px 18px;border-bottom:1px solid var(--line);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;display:flex;align-items:center;gap:9px}
+#clients-map{height:420px}
+
+/* portfolio */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
+.filter{
+  padding:8px 17px;border-radius:999px;font-size:13.5px;font-weight:500;cursor:pointer;
+  background:var(--paper);border:1px solid var(--line);color:var(--muted);
+  transition:all .15s;font-family:inherit;
+}
+.filter:hover{border-color:var(--sky);color:var(--blue)}
+.filter[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:18px}
+.proj{
+  position:relative;padding:24px 22px 22px;border-radius:var(--r);background:var(--paper);
+  border:1px solid var(--line);box-shadow:var(--shadow);overflow:hidden;
+  transition:transform .2s,box-shadow .2s;
+}
+.proj:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift)}
+.proj::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--rail,var(--sky))}
+.proj[data-cat="commercial"]{--rail:#1a5fa8}
+.proj[data-cat="municipal"]{--rail:#4f7f2e}
+.proj[data-cat="residential"]{--rail:#b6791f}
+.proj[data-cat="hospitality"]{--rail:#a83f63}
+.proj[data-cat="exterior"]{--rail:#5c6b7a}
+.proj .tag{
+  display:inline-block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  font-weight:600;color:var(--rail);margin-bottom:10px;
+}
+.proj h4{font-family:"Outfit",sans-serif;font-size:18px;font-weight:600;margin-bottom:7px}
+.proj p{font-size:14px;color:var(--muted);line-height:1.6}
+
+/* capabilities */
+.caps{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.cap-card{padding:28px;border-radius:var(--r);background:var(--paper);border:1px solid var(--line);box-shadow:var(--shadow)}
+.cap-card h3{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:16px}
+.cap-list{display:flex;flex-direction:column;gap:2px}
+.cap-list li{list-style:none;display:flex;gap:11px;align-items:baseline;padding:8px 0;border-bottom:1px dashed var(--line);font-size:15px}
+.cap-list li:last-child{border-bottom:none}
+.cap-list li::before{content:"";width:6px;height:6px;border-radius:2px;background:var(--sky);flex:0 0 auto;transform:translateY(-2px)}
+
+/* credentials */
+.cred-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(262px,1fr));gap:18px}
+.cred{padding:26px;border-radius:var(--r);background:var(--paper);border:1px solid var(--line);box-shadow:var(--shadow)}
+.cred h3{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+.lic{padding:12px 0;border-bottom:1px solid var(--line)}
+.lic:last-child{border-bottom:none;padding-bottom:0}
+.lic .t{font-size:14px;color:var(--muted)}
+.lic .n{
+  font-family:"IBM Plex Mono",monospace;font-size:16px;font-weight:500;color:var(--ink);
+  background:none;border:none;padding:2px 0;cursor:pointer;letter-spacing:.02em;
+}
+.lic .n:hover{color:var(--blue)}
+.lic .n::after{content:" ⧉";font-size:12px;color:var(--muted)}
+.ins{display:flex;justify-content:space-between;align-items:baseline;padding:11px 0;border-bottom:1px solid var(--line)}
+.ins:last-child{border-bottom:none}
+.ins .t{font-size:14.5px;color:var(--muted)}
+.ins .v{font-family:"Outfit",sans-serif;font-size:22px;font-weight:600;color:var(--blue)}
+.cred .item{padding:11px 0;border-bottom:1px solid var(--line)}
+.cred .item:last-child{border-bottom:none}
+.cred .item .v{font-size:15px;font-weight:500}
+.cred .item .s{font-size:13.5px;color:var(--muted)}
+.bond{
+  margin-top:22px;padding:28px 32px;border-radius:var(--r);color:#fff;
+  background:linear-gradient(120deg,var(--ink) 0%,var(--blue-700) 100%);
+  display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+}
+.bond .l{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#a9c6e0}
+.bond .v{font-family:"Outfit",sans-serif;font-size:clamp(30px,4vw,44px);font-weight:600;letter-spacing:-.02em}
+
+/* contact */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.contact-card{padding:30px;border-radius:var(--r);background:var(--paper);border:1px solid var(--line);box-shadow:var(--shadow)}
+.crow{display:flex;gap:14px;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--line)}
+.crow:last-of-type{border-bottom:none}
+.crow svg{flex:0 0 auto;margin-top:3px}
+.crow .k{display:block;font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+.crow .v{display:block;font-size:16px;color:var(--text);font-weight:500;line-height:1.5;margin-top:2px}
+a.crow:hover .v{color:var(--blue)}
+.contact-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.btn-solid{background:var(--ink);color:#fff}
+.btn-solid:hover{background:var(--blue-700)}
+.btn-outline{border-color:var(--line);color:var(--text);background:var(--paper)}
+.btn-outline:hover{border-color:var(--sky);color:var(--blue)}
+.contact-map{border-radius:var(--r);overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow);min-height:340px}
+.contact-map iframe{width:100%;height:100%;min-height:340px;border:0;display:block}
+
+/* footer */
+footer{background:var(--ink);color:#93aac0;padding:52px 0 40px;font-size:14px}
+.foot{display:flex;flex-wrap:wrap;gap:26px;justify-content:space-between;align-items:flex-start}
+.foot strong{font-family:"Outfit",sans-serif;color:#fff;font-size:17px;font-weight:600;letter-spacing:.02em;display:block;margin-bottom:8px}
+.foot a{color:#93aac0}
+.foot a:hover{color:#fff}
+.foot-lic{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:#6f89a2}
+.foot-bottom{margin-top:34px;padding-top:20px;border-top:1px solid rgba(255,255,255,.12);font-size:12.5px;color:#6f89a2;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+/* toast */
+#toast{
+  position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);z-index:900;
+  background:var(--ink);color:#fff;padding:12px 20px;border-radius:999px;font-size:14px;
+  opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;
+}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* ============ responsive ============ */
+@media (max-width:960px){
+  .about-cols{grid-template-columns:1fr;gap:32px}
+  .caps,.client-cols,.contact-grid{grid-template-columns:1fr}
+  .pillars{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr 1fr}
+}
+@media (max-width:760px){
+  .menu-toggle{display:block}
+  .mainnav{
+    position:absolute;top:var(--nav-h);left:0;right:0;flex-direction:column;gap:0;
+    background:#fff;border-bottom:1px solid var(--line);padding:8px 16px 16px;display:none;
+    box-shadow:var(--shadow);
+  }
+  .mainnav.open{display:flex}
+  .mainnav a{padding:12px 8px;font-size:15px;border-radius:8px}
+  .topbar-in .call-btn{display:none}
+  .hero-in{padding-top:56px}
+  .band{padding:60px 0}
+  .stat{padding:20px 16px 26px}
+  .facts{grid-template-columns:1fr}
+  #clients-map{height:320px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+  .pillar:hover,.proj:hover,.btn:hover,.call-btn:hover{transform:none}
+}
+@media print{
+  .topbar,.hero-cta,.filters,.map-shell,.contact-map,#toast,.menu-toggle{display:none!important}
+  body{font-size:11pt}
+  .band{padding:18px 0;break-inside:avoid}
+  .hero{background:#fff;color:#000}
+  .hero h1,.stat .n{color:#000}
+  .proj,.cred,.cap-card,.pillar{box-shadow:none;break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brandmark" href="#top" aria-label="Trintec Construction Inc. — home">
+      <img src="Trintec_col_large.jpg" alt="Trintec Construction Inc.">
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mainnav" aria-label="Menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <nav class="mainnav" id="mainnav">
+      <a href="#about">About</a>
+      <a href="#clients">Clients</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#capabilities">Capabilities</a>
+      <a href="#credentials">Licenses</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="call-btn" href="tel:3056853001">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 3h2.5l1 3-1.5 1.5a9 9 0 0 0 3.5 3.5L10 9.5l3 1V13c0 .5-.5 1-1 1C5 14 2 8 2 4c0-.5.5-1 1-1Z"/></svg>
+      305-685-3001
+    </a>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<div class="hero" id="top">
+  <div class="hero-in">
+    <span class="eyebrow">General &amp; Roofing Contractor · Miami, FL</span>
+    <h1>Building excellence in South Florida <em>since 1998</em></h1>
+    <p class="lead">
+      Full-service commercial construction — interior and exterior — for property managers,
+      developers, and government agencies across Miami-Dade, Broward, and Palm Beach.
+      Most trades performed by our own crews, so schedule and quality stay in our hands.
+    </p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#portfolio">
+        See the portfolio
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a class="btn btn-ghost" href="Trintec_Catalog_Flipbook.html">Flip through the catalog</a>
+      <a class="btn btn-ghost" href="#contact">Request a proposal</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="n">1998</div><div class="l">Founded in Miami</div></div>
+      <div class="stat"><div class="n"><small>$</small>10M</div><div class="l">Bonding · single job</div></div>
+      <div class="stat"><div class="n">3</div><div class="l">Counties served</div></div>
+      <div class="stat"><div class="n" style="font-size:clamp(19px,2.3vw,27px)">SBE · DBE · WBE</div><div class="l">Certified enterprise</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ABOUT ============ -->
+<section class="band" id="about">
+  <div class="wrap">
+    <div class="about-cols">
+      <div class="reveal">
+        <div class="sec-kicker">The company</div>
+        <h2 style="font-size:clamp(27px,3.6vw,40px);margin:14px 0 0">A contractor built on repeat clients</h2>
+        <p style="margin-top:16px;color:var(--muted);font-size:17px">
+          Founded in 1998, Trintec Construction is South Florida's trusted full-service General and
+          Roofing Contractor. Nearly three decades in a competitive market comes down to three things:
+          crews we employ directly, budgets we hold, and dates we meet.
+        </p>
+        <div class="badges">
+          <span class="badge">SBE</span>
+          <span class="badge">DBE</span>
+          <span class="badge">WBE</span>
+          <span class="badge">LEED AP</span>
+          <span class="badge">EPA Renovator</span>
+          <span class="badge gold">25 Years</span>
+        </div>
+      </div>
+      <div class="facts reveal">
+        <div class="fact"><div class="k">Founded</div><div class="v">1998</div><div class="s">Miami, FL</div></div>
+        <div class="fact"><div class="k">Bond capacity</div><div class="v">$10 Million</div><div class="s">Single job limit</div></div>
+        <div class="fact"><div class="k">Service area</div><div class="v">South Florida</div><div class="s">Miami-Dade · Broward · Palm Beach</div></div>
+        <div class="fact"><div class="k">Specialization</div><div class="v">Commercial</div><div class="s">Interior &amp; exterior</div></div>
+      </div>
+    </div>
+
+    <div class="pillars">
+      <div class="pillar reveal">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#1a5fa8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+        <h3>On-time delivery</h3>
+        <p>Direct crew management keeps your project on schedule — no waiting on someone else's subcontractor.</p>
+      </div>
+      <div class="pillar reveal">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#1a5fa8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <h3>Quality assurance</h3>
+        <p>In-house teams carry the same standards from demolition through punch out.</p>
+      </div>
+      <div class="pillar reveal">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#1a5fa8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6.29 6.29l.98-.98a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <h3>Single point of contact</h3>
+        <p>One number, one project manager, start to finish — including permitting and inspections.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLIENTS ============ -->
+<section class="band shell" id="clients">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-kicker">Clients</div>
+      <h2>Trusted by agencies and the region's largest managers</h2>
+      <p>Long-standing relationships with public agencies and national property management firms.</p>
+    </div>
+    <div class="client-cols">
+      <div class="reveal">
+        <h3>Government agencies</h3>
+        <div class="chips">
+          <span class="chip gov">Miami-Dade County Aviation (MDAD)</span>
+          <span class="chip gov">City of Fort Lauderdale</span>
+          <span class="chip gov">City of Miami</span>
+          <span class="chip gov">City of Miami Beach</span>
+          <span class="chip gov">City of Sunrise</span>
+          <span class="chip gov">Broward County Public Schools</span>
+          <span class="chip gov">Miami-Dade Public Schools</span>
+          <span class="chip gov">Miami-Dade Parks &amp; Recreation</span>
+          <span class="chip gov">Miami-Dade Corrections</span>
+          <span class="chip gov">South Broward Drainage District</span>
+          <span class="chip gov">General Services Administration</span>
+          <span class="chip gov">Immigration Control &amp; Enforcement</span>
+        </div>
+      </div>
+      <div class="reveal">
+        <h3>Property management</h3>
+        <div class="chips">
+          <span class="chip">CBRE</span>
+          <span class="chip">Cushman &amp; Wakefield</span>
+          <span class="chip">Jones Lang LaSalle (JLL)</span>
+          <span class="chip">Holladay Properties</span>
+          <span class="chip">Kennedy Wilson Properties</span>
+          <span class="chip">TILIA Management</span>
+          <span class="chip">Signature Southern</span>
+          <span class="chip">Bridges Management</span>
+          <span class="chip">YMP Management</span>
+          <span class="chip">Market Street</span>
+          <span class="chip">Digital Realty</span>
+          <span class="chip">Pacific National Bank</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="map-shell reveal">
+      <div class="cap">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#1a5fa8" stroke-width="1.1"><path d="M8 1.5a4.5 4.5 0 0 1 4.5 4.5c0 3-4.5 8.5-4.5 8.5S3.5 9 3.5 6A4.5 4.5 0 0 1 8 1.5Z"/><circle cx="8" cy="6" r="1.5"/></svg>
+        Projects across South Florida
+      </div>
+      <div id="clients-map"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PORTFOLIO ============ -->
+<section class="band" id="portfolio">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-kicker">Portfolio</div>
+      <h2>Selected projects</h2>
+      <p>Lobbies, tenant improvements, municipal parks, historic renovation, and ground-up construction.</p>
+    </div>
+
+    <div class="filters" role="group" aria-label="Filter projects by category">
+      <button class="filter" data-cat="all" aria-pressed="true">All</button>
+      <button class="filter" data-cat="commercial" aria-pressed="false">Commercial</button>
+      <button class="filter" data-cat="municipal" aria-pressed="false">Municipal</button>
+      <button class="filter" data-cat="residential" aria-pressed="false">Residential</button>
+      <button class="filter" data-cat="hospitality" aria-pressed="false">Hospitality</button>
+      <button class="filter" data-cat="exterior" aria-pressed="false">Exterior</button>
+    </div>
+
+    <div class="proj-grid" id="projGrid">
+      <article class="proj reveal" data-cat="municipal"><span class="tag">Municipal</span><h4>Fisher Park</h4><p>Complete renovation with landscaping, pathways, and recreational facilities. City of Miami Beach.</p></article>
+      <article class="proj reveal" data-cat="municipal"><span class="tag">Municipal</span><h4>Island View Park</h4><p>Comprehensive waterfront park upgrades creating modern recreational spaces.</p></article>
+      <article class="proj reveal" data-cat="municipal"><span class="tag">Municipal</span><h4>Pump Station S-3</h4><p>Critical infrastructure for South Broward Drainage District.</p></article>
+      <article class="proj reveal" data-cat="municipal"><span class="tag">Municipal</span><h4>South Side School</h4><p>Historic renovation for City of Fort Lauderdale. Preservation plus modern systems integration.</p></article>
+      <article class="proj reveal" data-cat="commercial"><span class="tag">Commercial</span><h4>Miami Springs Library</h4><p>Structural expansion, interior renovation, and HVAC/electrical upgrade for this community resource.</p></article>
+      <article class="proj reveal" data-cat="commercial"><span class="tag">Commercial</span><h4>777 Brickell (CBRE)</h4><p>Complete lobby renovation with modern finishes and enhanced lighting.</p></article>
+      <article class="proj reveal" data-cat="commercial"><span class="tag">Commercial</span><h4>1390 Brickell Ave</h4><p>Elegant lobby transformation for Pacific National Bank with sophisticated design.</p></article>
+      <article class="proj reveal" data-cat="commercial"><span class="tag">Commercial</span><h4>150 W. Flagler St</h4><p>Contemporary lobby redesign for Gaedeke Group.</p></article>
+      <article class="proj reveal" data-cat="commercial"><span class="tag">Commercial</span><h4>550 Biltmore Way</h4><p>Upscale renovation for Taylor &amp; Mathis with premium finishes.</p></article>
+      <article class="proj reveal" data-cat="commercial"><span class="tag">Commercial</span><h4>McDowell Housing Offices</h4><p>Complete office buildout with custom finishes and efficient space planning.</p></article>
+      <article class="proj reveal" data-cat="commercial"><span class="tag">Commercial</span><h4>Heinemann Americas Inc.</h4><p>Corporate office buildout with modern amenities.</p></article>
+      <article class="proj reveal" data-cat="commercial"><span class="tag">Commercial</span><h4>100 South Biscayne</h4><p>Class A bathroom renovations with high-end fixtures and elegant tilework.</p></article>
+      <article class="proj reveal" data-cat="commercial"><span class="tag">Commercial</span><h4>Cemex Florida HQ</h4><p>Comprehensive interior renovation delivering a sophisticated headquarters environment.</p></article>
+      <article class="proj reveal" data-cat="commercial"><span class="tag">Commercial</span><h4>BLU Wellness — Brickell &amp; Miami Beach</h4><p>Full wellness facility with spa-quality finishes and custom lighting.</p></article>
+      <article class="proj reveal" data-cat="commercial"><span class="tag">Commercial</span><h4>Crossville Tiles Showroom</h4><p>Premium retail buildout in Doral with custom lighting and display systems.</p></article>
+      <article class="proj reveal" data-cat="exterior"><span class="tag">Exterior</span><h4>Mercy Hospital MOB</h4><p>Full exterior refurbishment: stucco restoration, painting, and weatherproofing while the building stayed in operation.</p></article>
+      <article class="proj reveal" data-cat="hospitality"><span class="tag">Hospitality</span><h4>Best Western Plus Hotel</h4><p>Ground-up construction in Miami Springs. Full franchise standards compliance.</p></article>
+      <article class="proj reveal" data-cat="residential"><span class="tag">Residential</span><h4>Brickell Apartments</h4><p>Premium multi-family development in Brickell with luxury finishes and tight urban site management.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CAPABILITIES ============ -->
+<section class="band shell" id="capabilities">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-kicker">Capabilities</div>
+      <h2>What we self-perform</h2>
+      <p>Our own crews cover most trades, which is why schedule and quality control stay in-house.</p>
+    </div>
+    <div class="caps">
+      <div class="cap-card reveal">
+        <h3>Construction trades</h3>
+        <ul class="cap-list">
+          <li>Demolition</li>
+          <li>Rough &amp; finish carpentry</li>
+          <li>Shell construction &amp; masonry</li>
+          <li>Drywall framing, hanging &amp; finishing</li>
+          <li>Interior &amp; exterior painting</li>
+          <li>Stucco and lath application</li>
+          <li>Building &amp; mechanical insulation</li>
+          <li>Complete roofing services</li>
+          <li>Punch out</li>
+        </ul>
+      </div>
+      <div class="cap-card reveal">
+        <h3>Preconstruction &amp; management</h3>
+        <ul class="cap-list">
+          <li>Construction management</li>
+          <li>Budget development &amp; control</li>
+          <li>Estimating &amp; proposal review</li>
+          <li>CPM scheduling</li>
+          <li>Value engineering</li>
+          <li>Design document constructability review</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CREDENTIALS ============ -->
+<section class="band" id="credentials">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-kicker">Licenses &amp; insurance</div>
+      <h2>Everything procurement asks for</h2>
+      <p>Licensed, certified, bonded, and insured. Tap a license number to copy it.</p>
+    </div>
+    <div class="cred-grid">
+      <div class="cred reveal">
+        <h3>State licenses</h3>
+        <div class="lic"><div class="t">General Contractor</div><button class="n" data-copy="CGC059705">CGC059705</button></div>
+        <div class="lic"><div class="t">Roofing Contractor</div><button class="n" data-copy="CCC1327273">CCC1327273</button></div>
+        <div class="lic"><div class="t">Commercial Pool &amp; Spa</div><button class="n" data-copy="CPC1458279">CPC1458279</button></div>
+      </div>
+      <div class="cred reveal">
+        <h3>Insurance coverage</h3>
+        <div class="ins"><span class="t">Workers compensation</span><span class="v">$1M</span></div>
+        <div class="ins"><span class="t">General liability</span><span class="v">$1M</span></div>
+        <div class="ins"><span class="t">Umbrella liability</span><span class="v">$5M</span></div>
+        <div class="ins"><span class="t">Automobile</span><span class="v">$1M</span></div>
+      </div>
+      <div class="cred reveal">
+        <h3>Business certifications</h3>
+        <div class="item"><div class="v">SBE — Small Business Enterprise</div></div>
+        <div class="item"><div class="v">DBE — Disadvantaged Business Enterprise</div></div>
+        <div class="item"><div class="v">WBE — Woman Business Enterprise</div><div class="s">Broward, Dade, Palm Beach &amp; State of Florida</div></div>
+      </div>
+      <div class="cred reveal">
+        <h3>Professional credentials</h3>
+        <div class="item"><div class="v">Petulia Schvartz</div><div class="s">President &amp; Qualifier</div></div>
+        <div class="item"><div class="v">LEED AP Building &amp; Construction</div></div>
+        <div class="item"><div class="v">EPA Renovator Certified</div></div>
+      </div>
+    </div>
+    <div class="bond reveal">
+      <div><div class="l">Bonding capacity · single job</div></div>
+      <div class="v">$10,000,000</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="band shell" id="contact">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-kicker">Contact</div>
+      <h2>Let's talk about your project</h2>
+      <p>Send drawings or a scope and we'll come back with a proposal.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card reveal">
+        <a class="crow" href="https://maps.google.com/?q=7865+NW+66th+Street+Miami+FL+33166" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="#1a5fa8" stroke-width="1.1"><path d="M8 1.5a4.5 4.5 0 0 1 4.5 4.5c0 3-4.5 8.5-4.5 8.5S3.5 9 3.5 6A4.5 4.5 0 0 1 8 1.5Z"/><circle cx="8" cy="6" r="1.5"/></svg>
+          <span><span class="k">Office</span><span class="v">7865 NW 66th Street<br>Miami, FL 33166</span></span>
+        </a>
+        <a class="crow" href="mailto:pschvartz@trintecinc.com">
+          <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="#1a5fa8" stroke-width="1.1"><rect x="2" y="3.5" width="12" height="9" rx="1.5"/><path d="M2 5.5l6 4 6-4"/></svg>
+          <span><span class="k">Email</span><span class="v">pschvartz@trintecinc.com</span></span>
+        </a>
+        <a class="crow" href="tel:3056853001">
+          <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="#1a5fa8" stroke-width="1.1"><path d="M3 3h2.5l1 3-1.5 1.5a9 9 0 0 0 3.5 3.5L10 9.5l3 1V13c0 .5-.5 1-1 1C5 14 2 8 2 4c0-.5.5-1 1-1Z"/></svg>
+          <span><span class="k">Phone</span><span class="v">305-685-3001</span></span>
+        </a>
+        <div class="contact-actions">
+          <button class="btn btn-solid" id="vcardBtn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Save contact
+          </button>
+          <a class="btn btn-outline" href="mailto:pschvartz@trintecinc.com?subject=Project%20inquiry">Email us</a>
+        </div>
+      </div>
+      <div class="contact-map reveal">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3591.9!2d-80.3355!3d25.8215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9b9d99e9e9e9e%3A0x1!2s7865+NW+66th+St%2C+Miami%2C+FL+33166!5e0!3m2!1sen!2sus!4v1716400000000!5m2!1sen!2sus"
+          allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          title="Trintec Construction office location"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <strong>TRINTEC CONSTRUCTION INC</strong>
+      7865 NW 66th Street, Miami, FL 33166<br>
+      <a href="tel:3056853001">305-685-3001</a> · <a href="mailto:pschvartz@trintecinc.com">pschvartz@trintecinc.com</a>
+    </div>
+    <div class="foot-lic">
+      CGC059705 · CCC1327273 · CPC1458279<br>
+      SBE · DBE · WBE · LEED AP · EPA Renovator
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>© <span id="yr">2026</span> Trintec Construction Inc. All rights reserved.</span>
+    <span>Building excellence in South Florida since 1998</span>
+  </div>
+</footer>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+/* ---- mobile menu ---- */
+var nav = document.getElementById('mainnav'), toggle = document.getElementById('menuToggle');
+toggle.addEventListener('click', function(){
+  var open = nav.classList.toggle('open');
+  toggle.setAttribute('aria-expanded', open);
+});
+nav.addEventListener('click', function(e){ if (e.target.tagName === 'A') nav.classList.remove('open'); });
+
+/* ---- scroll spy ---- */
+var links = Array.prototype.slice.call(nav.querySelectorAll('a'));
+var sections = links.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+var spy = new IntersectionObserver(function(entries){
+  entries.forEach(function(en){
+    if (!en.isIntersecting) return;
+    links.forEach(function(l){ l.classList.remove('current'); });
+    var i = sections.indexOf(en.target);
+    if (i > -1) links[i].classList.add('current');
+  });
+}, { rootMargin: '-45% 0px -50% 0px' });
+sections.forEach(function(s){ if (s) spy.observe(s); });
+
+/* ---- reveal on scroll ---- */
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(en){
+    if (en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+  });
+}, { rootMargin: '0px 0px -8% 0px', threshold: .05 });
+document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+/* ---- portfolio filter ---- */
+document.querySelectorAll('.filter').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var cat = this.getAttribute('data-cat');
+    document.querySelectorAll('.filter').forEach(function(b){ b.setAttribute('aria-pressed','false'); });
+    this.setAttribute('aria-pressed','true');
+    document.querySelectorAll('.proj').forEach(function(card){
+      card.style.display = (cat === 'all' || card.getAttribute('data-cat') === cat) ? '' : 'none';
+    });
+  });
+});
+
+/* ---- toast + copy license ---- */
+var toastEl = document.getElementById('toast'), toastTimer;
+function toast(msg){
+  toastEl.textContent = msg; toastEl.classList.add('on');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ toastEl.classList.remove('on'); }, 2200);
+}
+document.querySelectorAll('[data-copy]').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var val = this.getAttribute('data-copy');
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(val).then(function(){ toast('Copied ' + val); });
+    } else {
+      toast(val);
+    }
+  });
+});
+
+/* ---- vCard ---- */
+document.getElementById('vcardBtn').addEventListener('click', function(){
+  var vcard = [
+    'BEGIN:VCARD','VERSION:3.0',
+    'FN:Trintec Construction Inc.',
+    'ORG:Trintec Construction Inc.',
+    'ADR;TYPE=WORK:;;7865 NW 66th Street;Miami;FL;33166;USA',
+    'TEL;TYPE=WORK:305-685-3001',
+    'EMAIL;TYPE=WORK:pschvartz@trintecinc.com',
+    'URL:https://trintec-construction.github.io/trintec-catalog/',
+    'END:VCARD'
+  ].join('\n');
+  var url = URL.createObjectURL(new Blob([vcard], { type:'text/vcard' }));
+  var a = document.createElement('a');
+  a.href = url; a.download = 'Trintec-Construction.vcf'; a.click();
+  URL.revokeObjectURL(url);
+  toast('Contact card downloaded');
+});
+
+/* ---- projects map (loads when scrolled into view) ---- */
+var mapDone = false;
+function initMap(){
+  if (mapDone || typeof L === 'undefined') return;
+  mapDone = true;
+  var map = L.map('clients-map', { scrollWheelZoom:false }).setView([25.85, -80.25], 10);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors', maxZoom: 18
+  }).addTo(map);
+
+  function dot(color, size){
+    return L.divIcon({
+      className:'',
+      html:'<div style="width:'+size+'px;height:'+size+'px;background:'+color+';border-radius:50%;border:2px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.45);"></div>',
+      iconSize:[size,size], iconAnchor:[size/2,size/2], popupAnchor:[0,-10]
+    });
+  }
+  var pin = dot('#c0392b', 12), hq = dot('#1a5fa8', 15);
+
+  var projects = [
+    { lat:25.7662, lng:-80.1890, name:'777 Brickell Ave', desc:'Full lobby renovation — CBRE' },
+    { lat:25.7607, lng:-80.1927, name:'1390 Brickell Ave', desc:'Lobby transformation — Pacific National Bank' },
+    { lat:25.7606, lng:-80.1928, name:'BLÚ Wellness — Brickell', desc:'Full wellness facility, spa-quality finishes' },
+    { lat:25.7736, lng:-80.1971, name:'150 W. Flagler St', desc:'Contemporary lobby redesign — Gaedeke Group' },
+    { lat:25.7731, lng:-80.1883, name:'100 S Biscayne Blvd', desc:'Class A bathroom renovations' },
+    { lat:25.7760, lng:-80.1931, name:'Digital Realty — Downtown Miami', desc:'Commercial construction' },
+    { lat:25.7636, lng:-80.1986, name:'Brickell Apartments', desc:'Premium multi-family development' },
+    { lat:25.7489, lng:-80.2594, name:'550 Biltmore Way — Coral Gables', desc:'Upscale renovation — Taylor & Mathis / Heinemann' },
+    { lat:25.7354, lng:-80.2694, name:'Mercy Hospital MOB', desc:'Exterior refurbishment — stucco, painting, waterproofing' },
+    { lat:25.8228, lng:-80.2788, name:'Miami Springs Library', desc:'Structural expansion + HVAC/electrical upgrade' },
+    { lat:25.8087, lng:-80.2856, name:'Best Western Plus Hotel', desc:'Ground-up construction — franchise standards' },
+    { lat:25.8067, lng:-80.2654, name:"MDAD — Miami Int'l Airport", desc:'Infrastructure — government client' },
+    { lat:25.8079, lng:-80.3384, name:'Crossville Tiles Showroom — Doral', desc:'Premium retail buildout' },
+    { lat:25.7858, lng:-80.4207, name:'CEMEX Florida HQ', desc:'Comprehensive interior renovation' },
+    { lat:25.7916, lng:-80.1300, name:'Fisher Park — Miami Beach', desc:'Complete renovation — City of Miami Beach' },
+    { lat:25.7950, lng:-80.1290, name:'Island View Park — Miami Beach', desc:'Waterfront park upgrades' },
+    { lat:25.8093, lng:-80.1450, name:'BLÚ Wellness — Miami Beach', desc:'Wellness facility with custom lighting' },
+    { lat:26.1126, lng:-80.1435, name:'South Side School — Fort Lauderdale', desc:'Historic renovation — City of Fort Lauderdale' },
+    { lat:26.1145, lng:-80.1399, name:'Broward County Public Schools', desc:'Educational projects — government client' },
+    { lat:26.1256, lng:-80.4232, name:'Pump Station S-3', desc:'Infrastructure — South Broward Drainage District' }
+  ];
+  projects.forEach(function(p){
+    L.marker([p.lat,p.lng], { icon:pin }).addTo(map)
+     .bindPopup('<strong style="font-size:13px;color:#1a5fa8;font-family:Outfit,sans-serif;">'+p.name+'</strong><br><span style="font-size:12px;color:#5c7086;">'+p.desc+'</span>');
+  });
+  L.marker([25.8215,-80.3355], { icon:hq }).addTo(map)
+   .bindPopup('<strong style="font-size:13px;color:#1a5fa8;font-family:Outfit,sans-serif;">Trintec HQ</strong><br><span style="font-size:12px;color:#5c7086;">7865 NW 66th Street, Miami FL 33166</span>');
+}
+var mapObserver = new IntersectionObserver(function(entries){
+  if (entries[0].isIntersecting){ initMap(); mapObserver.disconnect(); }
+}, { rootMargin:'200px' });
+mapObserver.observe(document.getElementById('clients-map'));
+</script>
+</body>
+</html>
